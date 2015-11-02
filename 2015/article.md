@@ -111,15 +111,15 @@ MessageChannel, et les Service Workers.
 ### Les Workers pour exécuter du code en parallèle
 
 Ah les Workers ! On sait que ça existe, mais on ne les utilise pas. Il faut
-avouer que c'est un peu pénible. Notamment on n'a pas accès à la _window_, et
+avouer que c'est un peu pénible. Notamment on n'a pas accès à la `window`, et
 donc ni au DOM ni aux APIs. Jusqu'à récemment on ne pouvait même pas utiliser
 indexedDB, un comble !
 
 C'est néanmoins un outil fondamental, puisque c'est lui qui nous extraie du
 modèle «thread unique» du JavaScript.
 
-Il faut savoir qu'il en existe deux types: les _Worker_s simples, attachés à une
-page Web particulière, et les _SharedWorker_s qui, comme leur nom l'indique,
+Il faut savoir qu'il en existe deux types: les *Worker*s simples, attachés à une
+page Web particulière, et les *SharedWorker*s qui, comme leur nom l'indique,
 sont partagés entre plusieurs pages d'une même origine.
 
 ### Les IFrames pour séparer facilement des parties de l'application
