@@ -72,7 +72,8 @@ pour permettre un affichage rapide du premier rendu, et ce n'est pas trivial.
 On le sait, sur mobile, les animations doivent absolument tourner sur le GPU. Il
 n'empêche que même ainsi il est trop facile de rendre une animation hachée,
 et surtout on y est très sensible en tant qu'humain. Il suffit de faire tourner
-un peu trop de JavaScript au mauvais moment, sur le thread principal.
+un peu trop de JavaScript ou déclencher un reflow au mauvais moment, sur le
+thread principal.
 
 ### Gestion de la mémoire
 
@@ -89,3 +90,72 @@ donné, même si le matériel qui fait tourner le code contient plusieurs
 processeurs. C'est d'autant plus important sur mobile où les processeurs ne sont
 pas particulièrement véloces __mais__ multiples.
 
+### Adaptation de l'interface
+
+Il faut savoir que Firefox OS tourne aujourd'hui tant sur des téléphones
+d'entrée de gamme que sur des télévisions 4K. Or il  est aujourd'hui difficile
+d'adapter l'interface à différents contextes. Quand
+bien même les vues seraient bien délimitées par rapport au code JavaScript, il
+est difficile de changer simplement son apparence ou son agencement.
+
+Pour aller plus loin, il est extrêmement difficile de changer d'apparence à la
+volée, comme pourrait le faire un système de thèmabilité.
+
+Des outils d'ores et déjà disponibles
+-------------------------------------
+
+La plate-forme Web nous apporte des choses dès maintenant: les (Shared) Workers,
+les détestées IFrames, les canaux de communication comme BroadcastChannel ou
+MessageChannel, et les Service Workers.
+
+### Les Workers pour exécuter du code en parallèle
+
+Ah les Workers ! On sait que ça existe, mais on ne les utilise pas. Il faut
+avouer que c'est un peu pénible. Notamment on n'a pas accès à la _window_, et
+donc ni au DOM ni aux APIs. Jusqu'à récemment on ne pouvait même pas utiliser
+indexedDB, un comble !
+
+C'est néanmoins un outil fondamental, puisque c'est lui qui nous extraie du
+modèle «thread unique» du JavaScript.
+
+Il faut savoir qu'il en existe deux types: les _Worker_s simples, attachés à une
+page Web particulière, et les _SharedWorker_s qui, comme leur nom l'indique,
+sont partagés entre plusieurs pages d'une même origine.
+
+### Les IFrames pour séparer facilement des parties de l'application
+
+Les plus vieux d'entre nous se rappellent bien de l'utilisation des frames dans
+les sites web des années 90, et depuis leur simple évocation nous provoque des
+frissons dans le dos.
+
+Cependant l'IFrame reste un outil très utile: elle permet l'encapsulation totale
+d'un document, tant au niveau du DOM qu'au niveau JavaScript. Cela permet de
+réduire les impacts des reflows (puisque le DOM est divisé en plusieurs arbres),
+et de libérer très facilement la mémoire prise par ces sous-documents (il suffit
+de supprimer l'IFrame du DOM principal).
+
+D'ailleurs, dans Firefox OS, chaque application vit dans son IFrame.
+
+### `BroadcastChannel` et `MessageChannel` pour communiquer facilement
+
+Ces deux objets font partie de nouvelles spécifications pour permettre aux
+applications de communiquer plus facilement entre leurs différentes pages ou
+scripts.
+
+Comme son nom l'indique, avec `BroadcastChannel` une partie de l'application va
+pouvoir s'abonner à un certain canal alors qu'une autre partie va pouvoir
+y publier des messages. On n'a pas besoin d'avoir une référence vers la fenêtre
+ou le script destination comme avec `postMessage`. Et cela fonctionne tant dans
+la page principale que dans les IFrames ou les Workers. On peut voir ça comme un
+gestionnaire d'événements global à une application et qui traverserait les
+couches d'IFrames et de Workers.
+
+`MessageChannel` est assez différent: il permet une communication
+bidirectionnelle entre deux points d'une application. En ce sens c'est beaucoup
+plus proche de `postMessage`, que l'on va d'ailleurs devoir utiliser pour passer
+le port de communication à l'une des parties.
+
+### Les Service Workers: une gestion programmatique du cache, et plus
+
+On ne va pas trop rentrer dans les détails ici. C'est en effet un sujet très
+riche.
