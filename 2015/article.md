@@ -159,3 +159,22 @@ le port de communication à l'une des parties.
 
 On ne va pas trop rentrer dans les détails ici. C'est en effet un sujet très
 riche.
+
+En gros, ce qu'il faut savoir:
+* Ça se place en coupure de toutes les requêtes HTTP et HTTPS. En clair, ça
+  signifie qu'on va pouvoir intercepter toutes les requêtes et exécuter du code
+  avant et/ou après la requête, voire la remplacer entièrement par autre chose.
+
+  Ça signifie qu'on contrôle totalement le fonctionnement réseau de notre
+  application. On peut même implémenter des URLs qui n'existent pas vraiment.
+
+* Au sein d'un Service Worker on a accès à une API spécialisée dans le stockage
+  de contenu avec une clé (l'API Cache). Cette API de cache est complètement
+  sous le contrôle du code JavaScript du Service Worker.
+
+* Un Service Worker va être installé par une application au premier accès, ou
+  bien à son installation avec l'utilisation d'un manifest. Après cette
+  installation, il pourra être actif quand bien même aucune fenêtre de
+  l'application n'est active ou même exécutée en fond.
+
+  Un Service Worker suit néanmoins un cycle de vie bien spécifié.
