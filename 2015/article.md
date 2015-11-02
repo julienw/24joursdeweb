@@ -118,17 +118,17 @@ MessageChannel, et les Service Workers.
 
 Ah les Workers ! On sait que ça existe, mais on ne les utilise pas. Il faut
 avouer que c'est un peu pénible. Notamment on n'a pas accès à la `window`, et
-donc ni au DOM ni aux APIs. Jusqu'à récemment on ne pouvait même pas utiliser
-indexedDB, un comble !
+donc ni au DOM ni à beaucoup d'APIs. Jusqu'à récemment on ne pouvait même pas utiliser
+indexedDB, un comble ! On peut consulter [la page dédiée sur
+MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers)
+pour connaître les APIs disponibles.
 
 C'est néanmoins un outil fondamental, puisque c'est lui qui nous extraie du
 modèle «thread unique» du JavaScript.
 
-Il faut savoir qu'il en existe deux types: les *Worker*s simples, attachés à une
+Il faut savoir qu'il en existe deux types: les *Worker*s simples, dédiés à une
 page Web particulière, et les *SharedWorker*s qui, comme leur nom l'indique,
 sont partagés entre plusieurs pages d'une même origine.
-
-TODO: parler des APIs disponibles
 
 ### Les IFrames pour séparer facilement des parties de l'application
 
@@ -181,6 +181,9 @@ En gros, ce qu'il faut savoir:
   de contenu avec une clé (l'API Cache). Cette API de cache est complètement
   sous le contrôle du code JavaScript du Service Worker.
 
+  On peut aussi chaîner facilement plusieurs caches qui auraient des
+  sémantiques différentes.
+
 * Un Service Worker va être installé par une application au premier accès, ou
   bien à son installation avec l'utilisation d'un manifest. Après cette
   installation, il pourra être actif quand bien même aucune fenêtre de
@@ -189,6 +192,67 @@ En gros, ce qu'il faut savoir:
   Un Service Worker suit néanmoins un cycle de vie bien spécifié. Il n'est donc
   pas constamment actif, mais le moteur peut le «réveiller» lorsqu'il en a
   besoin.
+
+  Ainsi certaines APIs l'utilisent d'ores et déjà, c'est le cas de l'API
+  Push Notification (ce qui permet à une application Web de recevoir des
+  notifications venant du serveur). À l'avenir d'autres APIs vont suivre le même
+  chemin.
+
+Bref, les Service Workers vont révolutionner notre manière de réaliser des
+applications Web. Pour l'instant on n'a fait qu'écorcher la surface.
+
+Utilisons ces outils pour concevoir l'architecture de demain
+------------------------------------------------------------
+Vous vous rappelez nos problèmes initiaux ? Essayons à présent de les résoudre !
+
+### Utilisation des Service Workers
+
+Les Service Workers vont avoir beaucoup d'intérêt puisqu'ils vont à la fois
+permettre de gérer l'installation, les mises à jour, la mise en cache, la
+gestion de certaines APIs.
+
+Pour définir plus facilement les URLs à traiter, ainsi que que la gestion de la
+mise en cache, nous avons développé la bibliothèque
+[ServiceWorkerWare](https://github.com/gaia-components/serviceworkerware) qui
+permet de définir cela de manière très déclarative en s'attachant aux
+différentes phases du cycle de vie du Worker. Elle fournit également deux
+implémentations de base pour la mise en cache.
+
+Nous avons prévu d'implémenter trois caches:
+* le cache Offline dont le but est de conserver les fichiers applicatifs
+  localement;
+* le ou les caches de personnalisation, qui vont permettre notamment de modifier
+  certaines vues ou comportement à la volée;
+* le cache de rendu, qui permettra de cacher et renvoyer très rapidement l'arbre
+  HTML généré par une exécution précédente. Ce cache pourra aussi être prégénéré
+  à l'installation, et notamment prendre en compte la localisation du téléphone,
+  ce qui fera gagner un temps précieux au chargement de l'application.
+
+![Enchaînement des caches](Gaia_Architecture_Proposal_Service_Worker_Overview.png)
+
+### Utilisation de documents séparés pour chaque vue
+
+C'est sans doute l'une des idées-phares de cette architecture: à chaque vue
+correspond un document HTML complètement séparé. Cela permet de ne charger que
+les fichiers nécessaires pour chaque vue, de n'utiliser que la mémoire
+nécessaire, et surtout de la libérer facilement lorsqu'on n'en a plus besoin.
+
+Évidemment il faut pouvoir passer rapidement d'une page à une autre, tel que
+l'on en a pris l'habitude avec les applications natives ou les applications en
+Singe-Page. Pour cela, il y a plusieurs angles d'approches:
+
+* Implémentation d'une [nouvelle API de gestion des transitions entre les pages](http://chrislord.net/index.php/2015/04/24/web-navigation-transitions/).
+  Cette API est encore en cours de discussion.
+* Implémentation d'une API de prerendering comme le fait déjà Blink. Cela
+  permettra de prérendre en mémoire la vue qui a le plus de chance d'être
+  visitée ensuite, ou bien de la prérendre en mémoire avant de l'afficher.
+* Implémentation d'une logique de cache des fichiers JavaScript réutilisés entre
+  les pages.
+
+Il est à noter que tout cela n'est évidemment pas dédié à Firefox OS uniquement
+mais est destiné à profiter également au navigateur Firefox.
+
+
 
 TODO: prélocalisation
 TODO: caching
