@@ -82,6 +82,12 @@ l'ensemble des données nécessaires à l'exécution de l'application, ainsi que
 l'ensemble du markup nécessaire. Évidemment il y a des techniques pour améliorer
 cela, mais là encore, ce n'est pas trivial.
 
+Par ailleurs, il est très compliqué de libérer la mémoire proprement une fois
+qu'elle a été allouée. Et au contraire il est très facile de conserver une
+petite référence dans un coin `\_°<` qui empêche le *garbage collector* de faire
+son boulot correctement. Par exemple, on oublie trop facilement d'enlever des
+gestionnaire d'événements.
+
 ### Utilisation des cœurs multiples
 
 Intrinsèquement le langage JavaScript utilise un modèle à thread unique, ce qui
@@ -122,6 +128,8 @@ Il faut savoir qu'il en existe deux types: les *Worker*s simples, attachés à u
 page Web particulière, et les *SharedWorker*s qui, comme leur nom l'indique,
 sont partagés entre plusieurs pages d'une même origine.
 
+TODO: parler des APIs disponibles
+
 ### Les IFrames pour séparer facilement des parties de l'application
 
 Les plus vieux d'entre nous se rappellent bien de l'utilisation des frames dans
@@ -161,6 +169,7 @@ On ne va pas trop rentrer dans les détails ici. C'est en effet un sujet très
 riche.
 
 En gros, ce qu'il faut savoir:
+
 * Ça se place en coupure de toutes les requêtes HTTP et HTTPS. En clair, ça
   signifie qu'on va pouvoir intercepter toutes les requêtes et exécuter du code
   avant et/ou après la requête, voire la remplacer entièrement par autre chose.
@@ -177,4 +186,14 @@ En gros, ce qu'il faut savoir:
   installation, il pourra être actif quand bien même aucune fenêtre de
   l'application n'est active ou même exécutée en fond.
 
-  Un Service Worker suit néanmoins un cycle de vie bien spécifié.
+  Un Service Worker suit néanmoins un cycle de vie bien spécifié. Il n'est donc
+  pas constamment actif, mais le moteur peut le «réveiller» lorsqu'il en a
+  besoin.
+
+TODO: prélocalisation
+TODO: caching
+
+TODO: web components
+TODO: page transition
+
+
