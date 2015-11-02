@@ -252,12 +252,35 @@ Singe-Page. Pour cela, il y a plusieurs angles d'approches:
 Il est à noter que tout cela n'est évidemment pas dédié à Firefox OS uniquement
 mais est destiné à profiter également au navigateur Firefox.
 
+### Utilisation massive des Workers
 
+Nous allons utiliser des Shared Workers pour contenir tout le modèle d'une
+application. L'interface entre les Workers et la vue peut être codifiée sous
+forme d'une interface de services. Ainsi il est plus facile de modifier la vue
+sans toucher aux services, et inversement.
 
-TODO: prélocalisation
-TODO: caching
+Ainsi nous déportons une grande partie de la logique métier dans un thread
+séparé ce qui libère du temps CPU pour le calcul de rendu de l'interface Web.
 
-TODO: web components
-TODO: page transition
+La [bibliothèque bridge](https://github.com/gaia-components/bridge) permet de
+facilement exposer des services d'un Shared Worker et d'y accéder depuis une
+vue.
+
+### Utilisation des Web Components
+
+Ce n'est pas directement lié à ce dont nous avons parlé plus tôt, mais nous
+avons néanmoins décidé d'utiliser massivement les Web Components. Nous avons
+commencé à développer [un certain nombre de composants sur
+Github](https://github.com/gaia-components/).
+
+Notamment le composant
+[gaia-fast-list](https://github.com/gaia-components/gaia-fast-list) vise à
+permettre l'utilisation de listes de grande taille («liste infinie») tout en
+gardant un défilement fluide.
+
+On pourra aussi consulter la [présentation de Wilson Page sur les Web
+Components](http://wilsonpage.github.io/presentations/web-components-in-production/#/)
+(avec Firefox bien sûr !).
+
 
 
