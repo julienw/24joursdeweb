@@ -15,13 +15,13 @@ client de l'utilisateur.
 
 Depuis ces quelques années, la communauté Web a créé des bibliothèques pour se
 simplifier la vie et retrouver les automatismes d'autres environnements:
-programmation suivant le paradigme MVC, concept nouveau (ou pas) de voir les
-interactions utilisateurs comme un cycle, coupler les vues HTML et leur
-comportement en JavaScript. Liste non exhaustive, vous en conviendrez.
+programmation suivant le [paradigme MVC](http://todomvc.com/), concept nouveau (ou pas) de voir les
+interactions utilisateurs [comme un cycle](http://cycle.js.org/), coupler les [vues HTML et leur
+comportement](https://facebook.github.io/react/) en JavaScript. Liste non exhaustive, vous en conviendrez.
 
-Dans Firefox OS, nous avons fait le choix dès le départ de ne pas utiliser de
+Dans [Firefox OS](https://www.mozilla.org/fr/firefox/os/), nous avons fait le choix dès le départ de ne pas utiliser de
 telles bibliothèques toutes faites. En effet, bien qu'elles soient utiles pour
-le développement multi-navigateurs, elles le sont moins dès lors qu'on développe
+le développement multi-navigateurs, elles le sont moins dès lors que l'on développe
 pour un unique moteur (en l'occurrence, Gecko). De plus elles cachent trop
 souvent les problèmes de la plate-forme Web alors que notre but est bien de
 trouver ceux-ci afin de les corriger.
@@ -48,7 +48,7 @@ Les problèmes de la méthode classique
 ### Utilisation d'application _packagées_
 
 Toutes les applications préinstallées, ainsi qu'une partie des applications
-installées sur le Marketplace, sont sous forme _packagées_, c'est-à-dire
+installées sur le [Marketplace](https://marketplace.firefox.com/), sont sous forme _packagées_, c'est-à-dire
 qu'elles se présentent sous forme d'une archive ZIP. Cela avait été rendu
 nécessaire pour la volonté de signer une application afin de lui accorder des
 privilèges supplémentaires.
@@ -101,9 +101,10 @@ pas particulièrement véloces __mais__ multiples.
 
 ### Adaptation de l'interface
 
-Il faut savoir que Firefox OS tourne aujourd'hui tant sur des téléphones
-d'entrée de gamme que sur des télévisions 4K. Or il  est aujourd'hui difficile
-d'adapter l'interface à différents contextes. Quand
+Il faut savoir que Firefox OS tourne aujourd'hui tant sur des [téléphones
+d'entrée de gamme](https://www.mozilla.org/fr/firefox/os/devices/) que sur des
+[télévisions 4K](https://www.mozilla.org/fr/firefox/os/devices/tv/). Or il est
+aujourd'hui difficile d'adapter l'interface à différents contextes. Quand
 bien même les vues seraient bien délimitées par rapport au code JavaScript, il
 est difficile de changer simplement son apparence ou son agencement.
 
@@ -136,7 +137,7 @@ sont partagés entre plusieurs pages d'une même origine.
 ### Les IFrames pour séparer facilement des parties de l'application
 
 Les plus vieux d'entre nous se rappellent bien de l'utilisation des frames dans
-les sites web des années 90, et depuis leur simple évocation nous provoque des
+les sites web des années 90, et depuis lors leur simple évocation nous provoque des
 frissons dans le dos.
 
 Cependant l'IFrame reste un outil très utile: elle permet l'encapsulation totale
@@ -269,7 +270,7 @@ La [bibliothèque bridge](https://github.com/gaia-components/bridge) permet de
 facilement exposer des services d'un Shared Worker et d'y accéder depuis une
 vue.
 
-### Utilisation des Web Components
+### Utilisation des [Web Components](https://developer.mozilla.org/fr/docs/Web/Web_Components)
 
 Ce n'est pas directement lié à ce dont nous avons parlé plus tôt, mais nous
 avons néanmoins décidé d'utiliser massivement les Web Components. Nous avons
@@ -301,3 +302,10 @@ architecture ne fonctionnera pas. Il faut néanmoins l'essayer avant de pouvoir
 en tirer des conclusions. Peut-être dans l'édition 2016 de 24 jours du web ? ;)
 
 Et vous, qu'en pensez-vous ?
+
+Crédits
+-------
+L'image de l'architecture des applications a été réalisées par Jérémie
+Patonnier.
+
+L'image des caches dans un Service Worker a été réalisée par Vivien Nicolas.
