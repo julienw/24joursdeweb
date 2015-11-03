@@ -7,7 +7,7 @@ premier iPhone.
 
 De même, nous créons des applications Web depuis quelques années. Si on voulait
 prendre un raccourci simpliste, on dirait que cette mouvance est arrivée avec
-GMail et Google Maps. Ah oui, je vais appeler "applications web" ces
+GMail et Google Maps. Ah oui, je vais appeler «applications web» ces
 sites web qui fonctionnent surtout en JavaScript et qui s'exécutent sur le poste
 client de l'utilisateur.
 
@@ -117,7 +117,7 @@ La plate-forme Web nous apporte des choses dès maintenant: les (Shared) Workers
 les détestées IFrames, les canaux de communication comme BroadcastChannel ou
 MessageChannel, et les Service Workers.
 
-### Les Workers pour exécuter du code en parallèle
+### Les [Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) pour exécuter du code en parallèle
 
 Ah les Workers ! On sait que ça existe, mais on ne les utilise pas. Il faut
 avouer que c'est un peu pénible. Notamment on n'a pas accès à la `window`, et
@@ -147,7 +147,7 @@ de supprimer l'IFrame du DOM principal).
 
 D'ailleurs, dans Firefox OS, chaque application vit dans son IFrame.
 
-### `BroadcastChannel` et `MessageChannel` pour communiquer facilement
+### [BroadcastChannel](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API) et [MessageChannel](https://developer.mozilla.org/en-US/docs/Web/API/Channel_Messaging_API/Using_channel_messaging) pour communiquer facilement
 
 Ces deux objets font partie de nouvelles spécifications pour permettre aux
 applications de communiquer plus facilement entre leurs différentes pages ou
@@ -166,7 +166,7 @@ bidirectionnelle entre deux points d'une application. En ce sens c'est beaucoup
 plus proche de `postMessage`, que l'on va d'ailleurs devoir utiliser pour passer
 le port de communication à l'une des parties.
 
-### Les Service Workers: une gestion programmatique du cache, et plus
+### Les [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers): une gestion programmatique du cache, et plus
 
 On ne va pas trop rentrer dans les détails ici. C'est en effet un sujet très
 riche.
@@ -293,7 +293,8 @@ Vous l'aurez compris, cette architecture montre une rupture avec les techniques
 actuelles: utilisation massive des Workers, arrivée des Service Workers,
 techniques de cache et de prerendering. Mais surtout, elle revient aux origines
 du Web: une vue est un document avec son URL, et on navigue dans l'application
-comme on navigue entre documents.
+comme on navigue entre documents. Pour en savoir plus, on pourra aller lire [la
+proposition complète sur le Wiki de Firefox OS](https://wiki.mozilla.org/Gaia/Architecture_Proposal).
 
 Il est totalement possible que tout ou partie de cette
 architecture ne fonctionnera pas. Il faut néanmoins l'essayer avant de pouvoir
