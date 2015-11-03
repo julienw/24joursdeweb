@@ -11,6 +11,8 @@ GMail et Google Maps. Ah oui, je vais appeler "applications web" ces
 sites web qui fonctionnent surtout en JavaScript et qui s'exécutent sur le poste
 client de l'utilisateur.
 
+![Architecture classique d'une application moderne](applications-architecture.png)
+
 Depuis ces quelques années, la communauté Web a créé des bibliothèques pour se
 simplifier la vie et retrouver les automatismes d'autres environnements:
 programmation suivant le paradigme MVC, concept nouveau (ou pas) de voir les
@@ -25,11 +27,12 @@ souvent les problèmes de la plate-forme Web alors que notre but est bien de
 trouver ceux-ci afin de les corriger.
 
 
-Des "Single-Page-Apps" classiques
+Des *Single-Page-Apps* classiques
 ---------------------------------
 
 Les applications développées pour Firefox OS utilisent néanmoins des mécanismes
-de Single-Page-Apps classiques: chargement d'une URL unique, systèmes qui
+de *Single-Page-Apps* classiques (ce sont des applications qui s'exécutent entièrement dans une
+page HTML unique): chargement d'une URL unique, systèmes qui
 permettent d'afficher ou cacher des vues en fonction des actions utilisateurs,
 éventuellement en modifiant l'URL, des objets en mémoire qui contiennent le
 modèle.
@@ -283,4 +286,17 @@ Components](http://wilsonpage.github.io/presentations/web-components-in-producti
 (avec Firefox bien sûr !).
 
 
+Une nouvelle architecture pour une nouvelle époque
+--------------------------------------------------
 
+Vous l'aurez compris, cette architecture montre une rupture avec les techniques
+actuelles: utilisation massive des Workers, arrivée des Service Workers,
+techniques de cache et de prerendering. Mais surtout, elle revient aux origines
+du Web: une vue est un document avec son URL, et on navigue dans l'application
+comme on navigue entre documents.
+
+Il est totalement possible que tout ou partie de cette
+architecture ne fonctionnera pas. Il faut néanmoins l'essayer avant de pouvoir
+en tirer des conclusions. Peut-être dans l'édition 2016 de 24 jours du web ? ;)
+
+Et vous, qu'en pensez-vous ?
